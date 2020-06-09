@@ -1,0 +1,377 @@
+
+# variables
+set $mod Mod4
+set $term --no-startup-id xfce4-terminal
+
+font pango:Hack Nerd Font Regular 9
+floating_modifier $mod
+
+#execute on startup
+exec --no-startup-id variety
+exec --no-startup-id compton
+#exec --no-startup-id feh --bg-center ~/Pictures/wallpapers/vj73avvswvg11.png
+
+# shutdown
+#Press $mod (super) and X to exit - check toolbar for next choices
+bindsym $mod+X mode "$mode_system"
+
+set $mode_system System (k) lock, (l) logout, (u) suspend, (h) hibernate, (r) reboot, (s) shutdown
+mode "$mode_system" {
+    bindsym k exec --no-startup-id ~/.config/i3/scripts/i3exit.sh lock, mode "default"
+    bindsym l exec --no-startup-id ~/.config/i3/scripts/i3exit.sh logout, mode "default"
+    bindsym u exec --no-startup-id ~/.config/i3/scripts/i3exit.sh suspend, mode "default"
+    bindsym h exec --no-startup-id ~/.config/i3/scripts/i3exit.sh hibernate, mode "default"
+    bindsym r exec --no-startup-id ~/.config/i3/scripts/i3exit.sh reboot, mode "default"
+    bindsym s exec --no-startup-id ~/.config/i3/scripts/i3exit.sh shutdown, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+#Autoclicker script
+set $mode_launcher Autoclicker: [1]100 normal [2]100 fast [3] 1000 fast [4] 10000 fast
+bindsym $mod+o mode "$mode_launcher"
+
+mode "$mode_launcher" {
+
+    bindsym 1 exec --no-startup-id ~/.config/i3/scripts/autoclicker.sh first, mode "default"
+    bindsym 2 exec --no-startup-id ~/.config/i3/scripts/autoclicker.sh second, mode "default"
+    bindsym 3 exec --no-startup-id ~/.config/i3/scripts/autoclicker.sh third, mode "default"
+    bindsym 4 exec --no-startup-id ~/.config/i3/scripts/autoclicker.sh fourth, mode "default"
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+
+#Change keyboard layout lang
+set $mode_lang Keyboard Layout: [1] IE [2] PL
+bindsym $mod+p mode "$mode_lang"
+
+mode "$mode_lang" {
+
+    bindsym 1 exec --no-startup-id ~/.config/i3/scripts/lang.sh first, mode "default"
+    bindsym 2 exec --no-startup-id ~/.config/i3/scripts/lang.sh second, mode "default"
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+
+#fan speed control
+set $fan_speed Fan Speed: [1] Level 7 [2] Auto [3] Full Speed
+bindsym $mod+l mode "$fan_speed"
+
+mode "$fan_speed" {
+
+    bindsym 1 exec --no-startup-id ~/.config/i3/scripts/fanControl.sh first, mode "default"
+    bindsym 2 exec --no-startup-id ~/.config/i3/scripts/fanControl.sh second, mode "default"
+    bindsym 3 exec --no-startup-id ~/.config/i3/scripts/fanControl.sh third, mode "default"
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+# keybinds
+
+#bindsym $mod+Return exec i3-sensible-terminal
+
+#bindsym $mod+Return exec --no-startup-id xfce4-terminal;focus
+bindsym $mod+Return exec --no-startup-id $term;focus
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% || pactl set-sink-volume 1 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% || pactl set-sink-volume 1 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle || pactl set-sink-mute 1 toggle # mute sound
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 15
+bindsym XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 15
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# Screenshot
+bindsym Print exec --no-startup-id scrot &
+
+# qutebrowser
+#bindsym $mod+q exec --no-startup-id qutebrowser
+
+# nautilus
+bindsym $mod+n exec --no-startup-id nautilus
+
+# chrome
+bindsym $mod+g exec --no-startup-id google-chrome-stable
+
+# wireless manager
+bindsym $mod+t exec $term -e nmtui
+
+#apps
+#bindsym $mod+a exec --no-startup-id io.elementary.appcenter
+
+#surf browser
+#bindsym $mod+s exec --no-startup-id surf duckduckgo.com
+
+# pycharm
+# bindsym $mod+p exec --no-startup-id . ~/Downloads/pycharm-community-2018.2.3/bin/pycharm.sh
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# ranger
+bindsym $mod+d exec --no-startup-id $term -e ranger
+#bindsym $mod+d exec --no-startup-id nautilus
+
+# start dmenu (a program launcher)
+bindsym $mod+z exec --no-startup-id dmenu_run -i -nb '#070501' -nf '#CB712A' -sb '#CB712A' -sf '#070501' -fn 'Hack:bold:pixelsize=11' -b
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# change focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+#bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the child container
+#bindsym $mod+d focus child
+
+#make a specific program show up on a specific workspace
+#eg open termite on ws 2
+#assign [class="Termite"] 2
+
+
+# switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+
+bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+Shift+Tab workspace next
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+#gaps
+for_window [class="^.*"] border pixel 0
+gaps inner 0
+gaps outer 0
+
+#change gaps
+bindsym $mod+i gaps inner current plus 5
+bindsym $mod+Shift+s gaps inner current minus 5
+
+
+# finds out, if available)
+#bar {
+#	height 25
+#	workspace_buttons yes
+#	position top
+#	status_command i3blocks
+##}
+#bar {
+       #status_command              i3blocks -c ~/.i3blocks.conf
+       #position                    top
+       #mode                        dock
+       #strip_workspace_numbers     yes
+       #height                      17
+       #font                        Hack: xos4 Terminess Powerline, awesome 9
+       #separator_symbol            "::"
+#
+##   Color panel
+#colors {
+       #background #191919
+       #statusline #FFFFFF
+       #separator  #3ce0fb
+#
+##   Indicadores panel
+##                        border  backgr   text
+   #focused_workspace  	#00AAD4 #00AAD4 #F9F9F9
+   #inactive_workspace  #F9F9F9 #F9F9F9 #000000
+   #urgent_workspace    #272727 #272727 #00AAD4
+#
+   #}
+#}
+ ##
+ #bar {
+        #status_command i3status
+        #tray_output primary
+        #position top
+#
+#
+    #colors {
+         #background #1a1c1d
+         #statusline #00A5FF #that neon blue
+         #separator #666666
+#
+         #focused_workspace  #CCF0F0 #CCF0F0 #000000
+         #active_workspace   #333333 #5f676a #ffffff
+         #inactive_workspace #333333 #222222 #888888
+         #urgent_workspace   #2f343a #900000 #ffffff
+     #}
+#
+ #}
+bar {
+       status_command              i3blocks -c ~/.config/i3blocks.conf
+       position                    top
+       mode                        dock
+       strip_workspace_numbers     yes
+       height                      17
+       #font                        TerminessTTF Nerd Font Medium 11
+       separator_symbol            ""
+
+   #Color panel
+colors {
+       background #191919
+       statusline #edeefd
+       separator  #3ce0fb
+
+  # Indicadores panel
+         focused_workspace  #CCF0F0 #CCF0F0 #000000
+         active_workspace   #333333 #5f676a #ffffff
+         inactive_workspace #333333 #222222 #888888
+         urgent_workspace   #2f343a #900000 #ffffff
+
+   }
+}
+
+#exec_always --no-startup-id polybar //config/polybar/config
+#exec_always --no-startup-id ~/.config/polybar/launch.sh
+ #bumblebee status bar
+#bar {
+#   id bar-1
+
+#   colors {
+#        background #1a1c1d
+#        statusline #00A5FF #that neon blue
+#        separator #666666
+
+#        focused_workspace  #CCF0F0 #CCF0F0 #000000
+#        active_workspace   #333333 #5f676a #ffffff
+#        inactive_workspace #333333 #222222 #888888
+#        urgent_workspace   #2f343a #900000 #ffffff
+#    }
+
+
+#    font pango:Inconsolata 10
+#    position top
+#    #tray_padding 0
+#    #tray_output none
+#   # status_command ~/Programs/bumblebee-status/bumblebee-status -m disk memory weather battery pasink date time layout -p interval=1.0 waether.interval=20 disk.interval=1 bettery.interval=1 memory.interval=1 cpu.interval=1 date.interval=20 time.format="%H:%M CW %V" date.format="%a, %b %d %Y" -t gruvbox-powerline
+#     status_command ~/Programs/bumblebee-status/bumblebee-status -m nic publicip disk cpu sensors memory weather battery pasink date time layout -p interval=1.0 sensors.interval=2 waether.interval=20 disk.interval=1 bettery.interval=1 memory.interval=1 cpu.interval=1 nic.interval=1 nic.exclude=lo,docker,vboxnet date.interval=20 publicip.interval=60 time.format="%H:%M CW %V" date.format="%a, %b %d %Y" -t gruvbox-powerline
+# # status_command ~/Programs/bumblebee-status/bumblebee-status -m spacer layout weather spacer sensors nvidiagpu disk load cpu memory battery pasink date time dnf -p interval=1.0 weather.interval=10 sensors.interval=2 nvidiagpu.interval=1 disk.interval=1 bettery.interval=1 memory.interval=1 cpu.interval=1 load.interval=1 dnf.interval=10 date.interval=20 time.format="%H:%M CW %V" date.format="%a, %b %d %Y" -t solarized-powerline
+#}
+ #
+ #bar {
+    #id bar-2
+    ##mode hide
+    ##modifier Mod4+x
+ #
+ #
+ #colors {
+        #background #1a1c1d
+        #statusline #00A5FF #that neon blue
+        #separator #666666
+ #
+        #focused_workspace  #4c7899 #285577 #ffffff
+        #active_workspace   #333333 #5f676a #ffffff
+        #inactive_workspace #333333 #222222 #888888
+        #urgent_workspace   #2f343a #900000 #ffffff
+    #}
+ #
+ #
+    #font pango:Inconsolata 10
+    ##tray_padding 100
+    #position top
+    ##tray_output none
+    #workspace_buttons no
+  #status_command ~/Programs/bumblebee-status/bumblebee-status -m title spotify uptime error getcrypto currency traffic nic publicip indicator brightness -p interval=1.0 getcrypto.interval=14000 getcrypto.getcur="EUR" currency.interval=100 currency.source="EUR" traffic.interval=1 sensors.interval=2 currency.destination="PLN" nic.interval=1 publicip.interval=60 weather.interval=60 brightness.interval=1 -t gruvbox-powerline
+ #}
+
+#colors
+
+# class                 border  backgr. text    indicator child_border
+client.focused          #4c7899 #285577 #ffffff #000000   #000000
+client.focused_inactive #333333 #5f676a #ffffff #000000   #000000
+client.unfocused        #333333 #222222 #888888 #000000   #000000
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+client.background       #ffffff
