@@ -8,17 +8,11 @@ case "$1" in
     logout)
         i3-msg exit
         ;;
-    suspend)
-        suspend
-        ;;
-    hibernate)
-        hibernate
-        ;;
     reboot)
-        reboot
+        loginctl reboot
         ;;
     shutdown)
-        poweroff
+        loginctl poweroff
         ;;
     *)
         echo "Usage: $0 {lock|logout|suspend|hibernate|reboot|shutdown}"

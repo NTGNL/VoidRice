@@ -15,12 +15,10 @@ exec --no-startup-id compton
 #Press $mod (super) and X to exit - check toolbar for next choices
 bindsym $mod+X mode "$mode_system"
 
-set $mode_system System (k) lock, (l) logout, (u) suspend, (h) hibernate, (r) reboot, (s) shutdown
+set $mode_system System (k) lock, (l) logout, (r) reboot, (s) shutdown
 mode "$mode_system" {
     bindsym k exec --no-startup-id ~/.config/i3/scripts/i3exit.sh lock, mode "default"
     bindsym l exec --no-startup-id ~/.config/i3/scripts/i3exit.sh logout, mode "default"
-    bindsym u exec --no-startup-id ~/.config/i3/scripts/i3exit.sh suspend, mode "default"
-    bindsym h exec --no-startup-id ~/.config/i3/scripts/i3exit.sh hibernate, mode "default"
     bindsym r exec --no-startup-id ~/.config/i3/scripts/i3exit.sh reboot, mode "default"
     bindsym s exec --no-startup-id ~/.config/i3/scripts/i3exit.sh shutdown, mode "default"
 
@@ -96,7 +94,7 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym Print exec --no-startup-id scrot &
 
 # qutebrowser
-#bindsym $mod+q exec --no-startup-id qutebrowser
+bindsym $mod+q exec --no-startup-id qutebrowser
 
 # nautilus
 bindsym $mod+n exec --no-startup-id nautilus
@@ -106,6 +104,15 @@ bindsym $mod+g exec --no-startup-id google-chrome-stable
 
 # wireless manager
 bindsym $mod+t exec $term -e nmtui
+
+#mount
+#bindsym $mod+m exec --no-startup-id /home/aleks/.scripts/dmenumount
+
+#unmount
+#bindsym $mod+u exec --no-startup-id /home/aleks/.scripts/dmenuumount
+
+#emoji
+#bindsym $mod+Shift+j exec --no-startup-id /home/aleks/.config/i3/scripts/compton.sh
 
 #apps
 #bindsym $mod+a exec --no-startup-id io.elementary.appcenter
@@ -124,8 +131,10 @@ bindsym $mod+d exec --no-startup-id $term -e ranger
 #bindsym $mod+d exec --no-startup-id nautilus
 
 # start dmenu (a program launcher)
-bindsym $mod+z exec --no-startup-id dmenu_run -i -nb '#070501' -nf '#CB712A' -sb '#CB712A' -sf '#070501' -fn 'Hack:bold:pixelsize=11' -b
+bindsym $mod+z exec --no-startup-id dmenu_run -i -nb '#070501' -nf '#dfa97f' -sb '#dfa97f' -sf '#070501' -fn 'Hack:bold:pixelsize=10' -b
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+#bindsym $mod+c . /home/aleks/Programs/cool-retro-term/cool-retro-term
 
 # change focus
 bindsym $mod+Left focus left
